@@ -1,0 +1,18 @@
+[project]
+name = "pricing-and-optimiser"
+version = "0.1.0"
+description = "ENTSO-E Electricity Pricing API and Optimization Service"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "entsoe-py>=0.6.19",
+    "fastapi>=0.115.0",
+    "jupyter>=1.1.1",
+    "matplotlib>=3.10.3",
+    "pandas>=2.3.0",
+    "pymodbus>=3.9.2",
+    "pyyaml>=6.0.0",
+    "requests>=2.32.3",
+    "seaborn>=0.13.2",
+    "uvicorn[standard]>=0.32.0",
+]

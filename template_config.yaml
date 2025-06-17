@@ -1,0 +1,90 @@
+# This is a template for the config.yaml file
+# It is used to configure the pricing and optimiser
+# It is used to configure the bidding zones
+# It is used to configure the default zones to fetch
+# It is used to configure the default date range
+# It is used to configure the data caching
+# It is used to configure the output settings
+
+# ENTSO-E Pricing API Configuration
+api:
+  # Get your free API token from ENTSO-E transparency platform
+  # Register at: https://transparency.entsoe.eu/
+  # Go to Account Settings > Web API Security Token
+  token: "4f6ec806-3d13-48d5-ab6f-23002f1b626d"  # Replace with your actual token
+  base_url: "https://web-api.tp.entsoe.eu/api"
+  timeout: 30
+
+# Available bidding zones
+zones:
+  # Swedish zones
+  SE1:
+    name: "Sweden - North"
+    code: "SE_1"
+    timezone: "Europe/Stockholm"
+    description: "Northern Sweden bidding zone"
+  
+  SE2:
+    name: "Sweden - Central"
+    code: "SE_2" 
+    timezone: "Europe/Stockholm"
+    description: "Central Sweden bidding zone"
+    
+  SE3:
+    name: "Sweden - South-Central"
+    code: "SE_3"
+    timezone: "Europe/Stockholm"
+    description: "South-Central Sweden bidding zone"
+    
+  SE4:
+    name: "Sweden - South"
+    code: "SE_4"
+    timezone: "Europe/Stockholm"
+    description: "Southern Sweden bidding zone"
+
+  # Norwegian zones (examples)
+  NO1:
+    name: "Norway - Oslo"
+    code: "NO_1"
+    timezone: "Europe/Oslo"
+    description: "Oslo bidding zone"
+    
+  NO2:
+    name: "Norway - Kristiansand"
+    code: "NO_2"
+    timezone: "Europe/Oslo"
+    description: "Kristiansand bidding zone"
+
+  # Danish zones (examples)
+  DK1:
+    name: "Denmark - West"
+    code: "DK_1"
+    timezone: "Europe/Copenhagen"
+    description: "Western Denmark bidding zone"
+    
+  DK2:
+    name: "Denmark - East"
+    code: "DK_2"
+    timezone: "Europe/Copenhagen"
+    description: "Eastern Denmark bidding zone"
+
+# Default service settings
+service:
+  # Default zones to fetch if none specified
+  default_zones:
+    - SE4
+    - SE3
+  
+  # Default date range (days back from current date)
+  default_days_back: 7
+  
+  # Data caching settings
+  cache:
+    enabled: true
+    ttl_minutes: 60  # Cache data for 1 hour
+    
+  # Output settings
+  output:
+    include_statistics: true
+    include_time_columns: true
+    timezone_conversion: true 
