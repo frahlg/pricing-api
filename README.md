@@ -23,7 +23,7 @@ A Python service and REST API for fetching electricity pricing data from multipl
 1. **Clone the repository** (if not already done):
    ```bash
    git clone <your-repo-url>
-   cd pricing-and-optimiser
+   cd pricing-api
    ```
 
 2. **Install dependencies** using uv:

@@ -87,4 +87,4 @@ service:
   output:
     include_statistics: true
     include_time_columns: true
-    timezone_conversion: true 
+    timezone_conversion: true
