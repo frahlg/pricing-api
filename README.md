@@ -11,6 +11,7 @@ A Python service and REST API for fetching electricity pricing data from multipl
 - **Price statistics**: Automatic calculation of price statistics (mean, median, min, max, etc.)
 - **Time-based analysis**: Includes hourly, daily, and weekly price patterns
 - **Error handling**: Robust error handling and logging
+- **Caching**: Optional in-memory cache to reduce repeated API calls
 - **Interactive documentation**: Auto-generated API documentation with OpenAPI/Swagger
 
 ## 📋 Prerequisites
@@ -63,6 +64,12 @@ service:
     - SE4
     - SE3
   default_days_back: 7
+  cache:
+    enabled: true  # Use in-memory caching
+    ttl_minutes: 60  # Cache duration in minutes
+  output:
+    include_statistics: true
+    include_time_columns: true
 ```
 
 ### Available Zones
