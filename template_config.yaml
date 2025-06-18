@@ -80,8 +80,8 @@ service:
   
   # Data caching settings
   cache:
-    enabled: true
-    ttl_minutes: 60  # Cache data for 1 hour
+    enabled: true  # Toggle in-memory caching
+    ttl_minutes: 60  # How long cached data is valid
     
   # Output settings
   output:

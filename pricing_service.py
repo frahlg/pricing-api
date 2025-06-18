@@ -9,7 +9,7 @@ import logging
 import warnings
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Union, Any
+from typing import Dict, List, Optional, Union, Any, Tuple
 import sys
 
 import pandas as pd
@@ -56,6 +56,11 @@ class PricingService:
         self.config = self._load_config()
         self.client = self._initialize_client()
         self._validate_config()
+
+        cache_cfg = self.config.get('service', {}).get('cache', {})
+        self.cache_enabled: bool = cache_cfg.get('enabled', False)
+        self.cache_ttl_minutes: int = cache_cfg.get('ttl_minutes', 60)
+        self._cache: Dict[str, Tuple[datetime, pd.DataFrame]] = {}
         
     def _load_config(self) -> Dict[str, Any]:
         """Load configuration from YAML file."""
@@ -150,11 +155,26 @@ class PricingService:
         logger.info(f"Fetching pricing data for zones {zones} from {start_date.date()} to {end_date.date()}")
         
         results = {}
-        
+
         for zone in zones:
             try:
+                cache_key = f"{zone}_{start_date.strftime('%Y%m%d')}_{end_date.strftime('%Y%m%d')}"
+                if self.cache_enabled:
+                    cached = self._cache.get(cache_key)
+                    if cached:
+                        cached_time, cached_df = cached
+                        if datetime.now() - cached_time < timedelta(minutes=self.cache_ttl_minutes):
+                            results[zone] = cached_df
+                            logger.info(f"Using cached data for zone {zone}")
+                            continue
+                        else:
+                            del self._cache[cache_key]
+
                 results[zone] = self._fetch_zone_prices(zone, start_date, end_date)
                 logger.info(f"Successfully fetched data for zone {zone}")
+
+                if self.cache_enabled and results[zone] is not None:
+                    self._cache[cache_key] = (datetime.now(), results[zone])
             except Exception as e:
                 logger.error(f"Failed to fetch data for zone {zone}: {e}")
                 results[zone] = None
