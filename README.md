@@ -371,6 +371,15 @@ For team support, check:
 3. ENTSO-E platform status
 4. This README file
 
+## 🧪 Running Tests
+
+Install the optional test dependencies and run `pytest`:
+
+```bash
+uv pip install -e .[test]
+pytest
+```
+
 ---
 
 *Last updated: January 2025*
